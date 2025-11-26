@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>내 옷장</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 800px; margin-top: 50px;">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>👗 내 옷장</h1>
+        <a href="/clothes/new" class="btn btn-primary">새 옷 등록</a>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="clothes : ${clothesList}">
+            <div class="card h-100 shadow-sm">
+
+                <img th:src="${clothes.imageUrl}" class="card-img-top" alt="옷 이미지"
+                     style="height: 250px; object-fit: cover;">
+
+                <div class="card-body">
+                    <h5 class="card-title fw-bold" th:text="${clothes.name}">옷 이름</h5>
+                    <p class="card-text text-muted mb-1">
+                        <span th:text="${clothes.brand}">브랜드</span> |
+                        <span th:text="${clothes.category}">종류</span>
+                    </p>
+                    <p class="card-text">
+                        색상: <span th:text="${clothes.color}" class="badge bg-secondary">Black</span>
+                    </p>
+                </div>
+
+                <div class="card-footer bg-white border-top-0 d-flex justify-content-end gap-2">
+                    <a th:href="@{/clothes/{id}/edit(id=${clothes.id})}" class="btn btn-outline-primary btn-sm">수정</a>
+                    <a th:href="@{/clothes/{id}/delete(id=${clothes.id})}" class="btn btn-outline-danger btn-sm"
+                       onclick="return confirm('진짜 버리시겠습니까?');">삭제</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
