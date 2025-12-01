@@ -17,21 +17,26 @@
 
     <div class="card p-4 mb-4 shadow-sm">
         <h4>회원 기능</h4>
-        <div class="btn-group-custom">
+
+        <div th:if="${session.loginMember == null}" class="btn-group-custom">
             <a href="/login" class="btn btn-dark btn-lg px-4">로그인</a>
             <a href="/members/new" class="btn btn-outline-dark btn-lg px-4">회원가입</a>
         </div>
-    </div>
 
-    <div class="card p-4 shadow-sm bg-light">
-        <h4>옷장 기능</h4>
-        <div class="btn-group-custom">
-            <a href="/clothes" class="btn btn-primary btn-lg px-4">내 옷장 보러가기</a>
+        <div th:if="${session.loginMember != null}">
+            <h5 class="mb-3">
+                반갑습니다, <span class="text-primary fw-bold" th:text="${session.loginMember.name}">사용자</span>님! 👋
+            </h5>
 
-            <a href="/clothes/new" class="btn btn-success btn-lg px-4">새 옷 등록</a>
+            <div class="btn-group-custom">
+                <a href="/members/my" class="btn btn-info text-white btn-lg px-4">마이페이지</a>
+
+                <form action="/logout" method="post" style="margin:0">
+                    <button type="submit" class="btn btn-danger btn-lg px-4">로그아웃</button>
+                </form>
+            </div>
         </div>
     </div>
-
 </div>
 
 </body>

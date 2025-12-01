@@ -1,7 +1,10 @@
 package com.example.closet_manager.controller;
 
 import com.example.closet_manager.domain.item.Clothes;
+import com.example.closet_manager.domain.item.Member;
 import com.example.closet_manager.service.ClothesService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +23,15 @@ public class ClothesController {
 
     //1. 메인 목록 페이지
     @GetMapping("/clothes")
-    public String list(Model model) {
-        List<Clothes> clothes = clothesService.findClothes();
+    public String list(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Member loginMember = (Member) session.getAttribute("loginMember");
+
+        if(loginMember == null) {
+            return "redirect:/login";
+        }
+
+        List<Clothes> clothes = clothesService.findMyClothes(loginMember);
         model.addAttribute("clothesList", clothes);
         return "clothes/list";
     }
@@ -35,8 +45,15 @@ public class ClothesController {
 
     //3. 옷 등록 처리
     @PostMapping("/clothes/new")
-    public String create(Clothes clothes) {
-        clothesService.saveClothes(clothes);
+    public String create(Clothes clothes, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Member loginMember = (Member) session.getAttribute("loginMember");
+
+        if(loginMember == null) {
+            return "redirect:/login";
+        }
+
+        clothesService.saveClothes(clothes, loginMember);
         return "redirect:/clothes";
     }
 

@@ -1,6 +1,7 @@
 package com.example.closet_manager.service;
 
 import com.example.closet_manager.domain.item.Clothes;
+import com.example.closet_manager.domain.item.Member;
 import com.example.closet_manager.repository.ClothesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,14 @@ public class ClothesService {
     private final ClothesRepository clothesRepository;
 
     //옷 등록
-    public void saveClothes(Clothes clothes) {
+    public void saveClothes(Clothes clothes, Member member) {
+        clothes.setMember(member);
         clothesRepository.save(clothes);
     }
 
     //옷장 보기
-    public List<Clothes> findClothes() {
-        return clothesRepository.findAll();
+    public List<Clothes> findMyClothes(Member member) {
+        return clothesRepository.findAllByMember(member);
     }
 
     //옷 상세/수정 조회
