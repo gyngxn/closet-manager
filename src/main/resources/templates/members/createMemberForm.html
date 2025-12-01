@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>회원 가입</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style> .container { max-width: 560px; margin-top: 50px; } </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="mb-4 text-center">👤 회원 가입</h2>
+    <form action="/members/new" method="post">
+        <div class="mb-3">
+            <label for="loginId" class="form-label">아이디</label>
+            <input type="text" name="loginId" class="form-control" placeholder="아이디를 입력하세요" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요" required>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">이름</label>
+            <input type="text" name="name" class="form-control" placeholder="이름을 입력하세요" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">가입하기</button>
+    </form>
+</div>
+</body>
+</html>
